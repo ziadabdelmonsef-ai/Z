@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>مذاكرتك الذكية 📚 | ثانوية عامة</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#06090f;
+  --surface:#0e1420;
+  --surface2:#141c2e;
+  --border:#ffffff14;
+  --gold:#f5c518;
+  --gold2:#ffd700;
+  --teal:#2de2c4;
+  --coral:#ff6b6b;
+  --violet:#b57bff;
+  --green:#4ade80;
+  --orange:#fb923c;
+  --text:#f0f4ff;
+  --muted:#7a8aaa;
+  --radius:16px;
+  --font:'Cairo',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font);
+  direction:rtl;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+/* ── STAR FIELD ── */
+#stars{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.star{position:absolute;background:#fff;border-radius:50%;animation:twinkle var(--d,3s) infinite alternate;}
+@keyframes twinkle{from{opacity:.05}to{opacity:.7}}
+
+/* ── LAYOUT ── */
+.page{position:relative;z-index:1;max-width:640px;margin:0 auto;padding:0 14px 80px;}
+
+/* ── SCREENS ── */
+.screen{display:none;animation:fadeUp .4s ease;}
+.screen.active{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── HERO ── */
+.hero{text-align:center;padding:48px 0 32px;}
+.hero-emoji{font-size:90px;display:block;animation:float 3.5s ease-in-out infinite;}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.hero-badge{
+  display:inline-block;
+  font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--gold);border:1px solid var(--gold)44;
+  border-radius:99px;padding:4px 16px;margin-bottom:14px;
+}
+.hero-title{
+  font-size:clamp(28px,8vw,42px);font-weight:900;line-height:1.15;
+  background:linear-gradient(135deg,var(--gold),var(--coral),var(--teal));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:10px;
+}
+.hero-sub{color:var(--muted);font-size:15px;line-height:1.7;margin-bottom:28px;}
+
+/* ── CARDS ── */
+.card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:22px 18px;
+  margin-bottom:14px;
+}
+.card-title{font-weight:800;font-size:15px;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+
+/* ── FORM ELEMENTS ── */
+label.lbl{display:block;font-size:12px;color:var(--muted);margin-bottom:7px;font-weight:600;}
+input,select,textarea{
+  width:100%;background:#ffffff0d;border:1px solid var(--border);
+  border-radius:12px;padding:11px 14px;color:var(--text);
+  font-family:var(--font);font-size:14px;outline:none;
+  transition:border-color .2s;direction:rtl;
+}
+input:focus,select:focus{border-color:var(--gold)66;}
+input::placeholder{color:var(--muted);}
+select option{background:#1a2236;color:#fff;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+
+/* ── BUTTONS ── */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  border:none;border-radius:14px;
+  font-family:var(--font);font-weight:800;cursor:pointer;
+  transition:filter .15s,transform .15s;
+  white-space:nowrap;
+}
+.btn:hover{filter:brightness(1.15);transform:scale(1.02);}
+.btn:active{transform:scale(.96);}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;padding:13px 26px;font-size:15px;}
+.btn-teal{background:linear-gradient(135deg,var(--teal),#1db8a0);color:#000;padding:13px 26px;font-size:15px;}
+.btn-coral{background:linear-gradient(135deg,var(--coral),#e05555);color:#fff;padding:10px 18px;font-size:13px;}
+.btn-violet{background:linear-gradient(135deg,var(--violet),#9c5de0);color:#fff;padding:10px 18px;font-size:13px;}
+.btn-ghost{background:#ffffff10;border:1px solid var(--border);color:var(--muted);padding:9px 16px;font-size:13px;}
+.btn-green{background:linear-gradient(135deg,var(--green),#22c55e);color:#000;padding:10px 18px;font-size:13px;}
+.btn-sm{padding:7px 14px;font-size:12px;border-radius:10px;}
+.btn-lg{padding:16px 36px;font-size:17px;border-radius:16px;}
+.btn-full{width:100%;border-radius:14px;padding:14px;}
+
+/* ── LEVEL SELECTOR ── */
+.level-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.level-btn{
+  padding:14px 8px;border-radius:14px;
+  border:2px solid var(--border);background:#ffffff08;
+  color:var(--muted);font-weight:700;font-size:13px;
+  cursor:pointer;transition:all .2s;font-family:var(--font);
+  text-align:center;
+}
+.level-btn.active{border-color:var(--gold);background:#f5c51822;color:var(--gold);}
+
+/* ── STEPPER ── */
+.stepper{display:flex;align-items:center;gap:10px;background:#ffffff08;border-radius:12px;padding:6px;}
+.stepper-val{flex:1;text-align:center;font-size:24px;font-weight:900;color:var(--gold);}
+.stepper-btn{
+  width:36px;height:36px;border-radius:9px;
+  background:var(--surface2);border:1px solid var(--border);
+  color:var(--text);font-size:20px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font);font-weight:900;
+  transition:background .2s;flex-shrink:0;
+}
+.stepper-btn:hover{background:var(--gold);color:#000;}
+
+/* ── CHIPS ── */
+.chips{display:flex;flex-wrap:wrap;gap:7px;}
+.chip{
+  padding:6px 12px;border-radius:99px;font-size:12px;font-weight:700;
+  border:1px solid var(--border);background:#ffffff08;
+  color:var(--muted);cursor:pointer;transition:all .2s;font-family:var(--font);
+}
+.chip:hover{border-color:currentColor;opacity:.85;}
+.chip.active{background:color-mix(in srgb,currentColor 18%,transparent);border-color:currentColor;}
+
+/* ── PROGRESS BAR ── */
+.pbar-wrap{background:#ffffff15;border-radius:99px;overflow:hidden;}
+.pbar{height:100%;border-radius:99px;transition:width .6s cubic-bezier(.4,0,.2,1);}
+
+/* ── LESSON ROW ── */
+.lesson-row{
+  display:flex;align-items:center;gap:10px;
+  background:#ffffff08;border-radius:13px;padding:11px 12px;
+  margin-bottom:8px;cursor:pointer;
+  border:1px solid transparent;transition:all .25s;
+}
+.lesson-row:hover{border-color:var(--gold)33;background:#ffffff0d;}
+.lesson-row.done{opacity:.45;background:#00ff8808;border-color:#00ff8822;}
+.lesson-check{
+  width:26px;height:26px;border-radius:50%;
+  border:2px solid var(--muted);background:transparent;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;flex-shrink:0;transition:all .3s;
+}
+.lesson-row.done .lesson-check{background:var(--green);border-color:var(--green);color:#000;}
+.lesson-info{flex:1;min-width:0;}
+.lesson-name{font-weight:700;font-size:13px;color:var(--text);}
+.lesson-meta{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px;}
+.tag{
+  font-size:10px;padding:2px 8px;border-radius:99px;font-weight:700;
+  border:1px solid currentColor;background:color-mix(in srgb,currentColor 12%,transparent);
+}
+
+/* ── DAY CARD ── */
+.day-card{
+  background:var(--surface);border:1.5px solid var(--border);
+  border-radius:20px;overflow:hidden;margin-bottom:12px;
+  transition:border-color .3s,box-shadow .3s;
+}
+.day-card.expanded{border-color:var(--day-color,var(--gold));box-shadow:0 0 28px color-mix(in srgb,var(--day-color,var(--gold)) 18%,transparent);}
+.day-header{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 16px;cursor:pointer;
+  transition:background .2s;
+}
+.day-header:hover{background:#ffffff06;}
+.day-num{
+  width:44px;height:44px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:16px;color:#000;flex-shrink:0;
+  box-shadow:0 0 16px color-mix(in srgb,currentColor 40%,transparent);
+}
+.day-body{
+  display:none;padding:0 16px 16px;
+  border-top:1px solid var(--border);animation:fadeUp .25s ease;
+}
+.day-card.expanded .day-body{display:block;}
+.day-chevron{font-size:18px;color:var(--muted);transition:transform .3s;margin-right:auto;}
+.day-card.expanded .day-chevron{transform:rotate(180deg);}
+
+/* ── STAT PILLS ── */
+.stat-row{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 14px;}
+.stat-pill{
+  background:#ffffff0d;border-radius:10px;padding:7px 12px;
+  font-size:12px;display:flex;align-items:center;gap:5px;
+}
+.stat-pill strong{color:var(--text);font-weight:800;}
+
+/* ── STICKY HEADER ── */
+.sticky-header{
+  position:sticky;top:0;z-index:100;
+  background:#06090fdd;backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:12px 14px;
+}
+.header-inner{max-width:640px;margin:0 auto;}
+
+/* ── COUNTDOWN ── */
+.countdown-box{
+  background:linear-gradient(135deg,#ff6b6b18,#ff6b6b08);
+  border:1px solid #ff6b6b33;border-radius:12px;
+  padding:8px 14px;text-align:center;
+}
+.countdown-num{font-size:24px;font-weight:900;color:var(--coral);line-height:1;}
+.countdown-lbl{font-size:10px;color:var(--muted);margin-top:1px;}
+
+/* ── MOTIVATIONAL BANNER ── */
+.motiv{
+  background:linear-gradient(135deg,#f5c51818,#2de2c418);
+  border:1px solid #f5c51833;border-radius:14px;
+  padding:12px 16px;margin-bottom:14px;
+  display:flex;align-items:center;gap:10px;
+  font-size:14px;color:var(--gold);font-weight:700;font-style:italic;
+}
+
+/* ── TOAST ── */
+.toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:14px;padding:12px 22px;font-size:14px;font-weight:700;
+  z-index:9999;transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+  white-space:nowrap;pointer-events:none;
+}
+.toast.show{transform:translateX(-50%) translateY(0);}
+
+/* ── CONFETTI ── */
+.confetti-piece{
+  position:fixed;pointer-events:none;z-index:9998;
+  width:10px;height:10px;border-radius:2px;
+  animation:confettiFall var(--dur,1.2s) ease-in forwards;
+}
+@keyframes confettiFall{
+  0%{transform:translateY(-20px) rotate(0deg);opacity:1;}
+  100%{transform:translateY(100vh) rotate(720deg);opacity:0;}
+}
+
+/* ── ADDED LESSON LIST ── */
+.added-lesson{
+  display:flex;align-items:center;gap:8px;
+  background:#ffffff08;border-radius:11px;padding:9px 12px;
+  margin-bottom:7px;border:1px solid var(--border);
+}
+.added-lesson-info{flex:1;min-width:0;}
+.added-lesson-name{font-weight:700;font-size:13px;color:var(--text);}
+.added-lesson-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+.remove-btn{
+  background:#ff6b6b1a;border:1px solid #ff6b6b44;color:var(--coral);
+  border-radius:8px;padding:4px 10px;cursor:pointer;font-size:13px;
+  font-family:var(--font);transition:background .2s;
+}
+.remove-btn:hover{background:#ff6b6b33;}
+
+/* ── SHAKE ── */
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}60%{transform:translateX(8px)}}
+.shake{animation:shake .35s ease;}
+
+/* ── OVERALL PROGRESS ── */
+.overall-progress{
+  background:linear-gradient(135deg,#f5c51812,#2de2c412);
+  border:1px solid #f5c51822;border-radius:16px;
+  padding:16px;margin-bottom:16px;
+}
+
+/* ── SUBJECT QUICK BUTTONS ── */
+.subject-quick{display:flex;overflow-x:auto;gap:8px;padding-bottom:4px;scrollbar-width:none;}
+.subject-quick::-webkit-scrollbar{display:none;}
+.subj-btn{
+  flex-shrink:0;padding:7px 13px;border-radius:99px;
+  border:1px solid var(--border);background:#ffffff08;
+  font-size:12px;font-weight:700;cursor:pointer;
+  font-family:var(--font);transition:all .2s;
+}
+
+/* ── MOBILE NAV ── */
+.bottom-nav{
+  display:none;
+  position:fixed;bottom:0;left:0;right:0;z-index:200;
+  background:#09101add;backdrop-filter:blur(14px);
+  border-top:1px solid var(--border);
+  padding:10px 0 env(safe-area-inset-bottom,10px);
+}
+@media(max-width:600px){.bottom-nav{display:flex;justify-content:space-around;}}
+.nav-item{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  font-size:10px;font-weight:700;color:var(--muted);cursor:pointer;
+  transition:color .2s;padding:4px 12px;border-radius:10px;
+  font-family:var(--font);background:none;border:none;
+}
+.nav-item.active,.nav-item:hover{color:var(--gold);}
+.nav-icon{font-size:20px;line-height:1;}
+
+/* ── STEP INDICATOR ── */
+.steps{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:24px;}
+.step-dot{width:8px;height:8px;border-radius:50%;background:var(--border);transition:all .3s;}
+.step-dot.active{background:var(--gold);box-shadow:0 0 8px var(--gold);}
+.step-dot.done{background:var(--teal);}
+
+/* ── EXPORT BUTTON ── */
+.export-bar{
+  display:flex;gap:8px;flex-wrap:wrap;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:16px;padding:14px;margin-bottom:14px;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--surface);}
+::-webkit-scrollbar-thumb{background:#f5c51830;border-radius:99px;}
+
+/* ── PRINT ── */
+@media print{
+  body{background:#fff!important;color:#000!important;}
+  .btn,.bottom-nav,.toast,.sticky-header,.export-bar,#stars,.no-print{display:none!important;}
+  .day-body{display:block!important;}
+  .day-card{border:1px solid #ddd!important;box-shadow:none!important;page-break-inside:avoid;}
+}
+</style>
+</head>
+<body>
+
+<!-- STAR FIELD -->
+<div id="stars"></div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- ══════════ SCREEN: INTRO ══════════ -->
+<div class="screen active" id="screen-intro">
+<div class="page">
+  <div class="hero">
+    <span class="hero-emoji">📚</span>
+    <div class="hero-badge">برعاية المهندس / زياد عبد المنصف </div>
+    <h1 class="hero-title">هانت يا بطل 🎯</h1>
+    <p class="hero-sub">خليك شاطر! دخل دروسك ووقتك وإحنا هنعملك جدول مذاكرة كامل على قد كيفك وبيتحفظ تلقائياً 😎</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">👋 اسمك إيه يا بطل؟</div>
+    <input type="text" id="inp-name" placeholder="مثلاً: محمد، سارة، أحمد..."/>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🎓 مستواك في الثانوية إزاي؟</div>
+    <div class="level-grid">
+      <button class="level-btn" data-level="ضعيف">😅<br/>ضعيف</button>
+      <button class="level-btn active" data-level="متوسط">😐<br/>متوسط</button>
+      <button class="level-btn" data-level="شاطر">🦁<br/>شاطر</button>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:24px 0 8px;">
+    <span style="font-size:12px;background:#ffffff0d;border:1px solid var(--border);border-radius:99px;padding:4px 12px;color:var(--muted);">⚡ جدول ذكي</span>
+    <span style="font-size:12px;background:#ffffff0d;border:1px solid var(--border);border-radius:99px;padding:4px 12px;color:var(--muted);">🇪🇬 بالمصري</span>
+    <span style="font-size:12px;background:#ffffff0d;border:1px solid var(--border);border-radius:99px;padding:4px 12px;color:var(--muted);">📱 موبايل فريندلي</span>
+    <span style="font-size:12px;background:#ffffff0d;border:1px solid var(--border);border-radius:99px;padding:4px 12px;color:var(--muted);">💾 حفظ تلقائي</span>
+  </div>
+
+  <div style="text-align:center;margin-top:16px;">
+    <button class="btn btn-gold btn-lg" onclick="goSetup()">يلا نبدأ 🚀</button>
+  </div>
+</div>
+</div>
+
+<!-- ══════════ SCREEN: SETUP ══════════ -->
+<div class="screen" id="screen-setup">
+<div class="sticky-header">
+  <div class="header-inner" style="display:flex;align-items:center;gap:10px;">
+    <button class="btn btn-ghost btn-sm" onclick="showScreen('intro')">← رجوع</button>
+    <div style="flex:1;">
+      <div style="font-weight:900;font-size:16px;">إعداد الجدول ⚙️</div>
+      <div style="font-size:11px;color:var(--muted);">حدد وقتك ومدة المذاكرة</div>
+    </div>
+  </div>
+</div>
+<div class="page" style="padding-top:16px;">
+  <div class="steps">
+    <div class="step-dot done" id="sd1"></div>
+    <div class="step-dot active" id="sd2"></div>
+    <div class="step-dot" id="sd3"></div>
+    <div class="step-dot" id="sd4"></div>
+  </div>
+
+  <div class="card" style="border-color:#f5c51822;">
+    <div class="card-title" style="color:var(--gold);">⏰ كام ساعة في اليوم؟</div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:12px;">عايز تذاكر كام ساعة في اليوم؟</p>
+    <div class="stepper">
+      <button class="stepper-btn" onclick="adj('hours',-0.5)">−</button>
+      <div class="stepper-val"><span id="val-hours">4</span> ساعة</div>
+      <button class="stepper-btn" onclick="adj('hours',0.5)">+</button>
+    </div>
+    <div style="margin-top:12px;">
+      <div class="pbar-wrap" style="height:8px;"><div class="pbar" id="bar-hours" style="background:var(--gold);width:33%;"></div></div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:4px;"><span>1 ساعة</span><span>12 ساعة</span></div>
+    </div>
+  </div>
+
+  <div class="card" style="border-color:#2de2c422;">
+    <div class="card-title" style="color:var(--teal);">📅 عدد أيام المذاكرة</div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:12px;">عايز الجدول يتوزع على كام يوم؟</p>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
+      <button class="chip active" style="color:var(--teal)" data-days="7" onclick="setDays(7,this)">7 أيام</button>
+      <button class="chip" style="color:var(--teal)" data-days="5" onclick="setDays(5,this)">5 أيام</button>
+      <button class="chip" style="color:var(--teal)" data-days="10" onclick="setDays(10,this)">10 أيام</button>
+      <button class="chip" style="color:var(--teal)" data-days="14" onclick="setDays(14,this)">14 يوم</button>
+      <button class="chip" style="color:var(--teal)" data-days="21" onclick="setDays(21,this)">21 يوم</button>
+      <button class="chip" style="color:var(--teal)" data-days="30" onclick="setDays(30,this)">30 يوم</button>
+    </div>
+    <div class="stepper">
+      <button class="stepper-btn" onclick="adj('days',-1)">−</button>
+      <div class="stepper-val"><span id="val-days">7</span> يوم</div>
+      <button class="stepper-btn" onclick="adj('days',1)">+</button>
+    </div>
+  </div>
+
+  <div class="card" style="border-color:#ff6b6b22;">
+    <div class="card-title" style="color:var(--coral);">📆 موعد الامتحان (اختياري)</div>
+    <input type="date" id="inp-exam"/>
+    <div id="exam-countdown" style="display:none;margin-top:10px;text-align:center;"></div>
+  </div>
+
+  <div style="text-align:center;margin-top:8px;">
+    <button class="btn btn-teal btn-lg btn-full" onclick="goLessons()">التالي: أضف دروسك 📚</button>
+  </div>
+</div>
+</div>
+
+<!-- ══════════ SCREEN: LESSONS ══════════ -->
+<div class="screen" id="screen-lessons">
+<div class="sticky-header">
+  <div class="header-inner" style="display:flex;align-items:center;gap:10px;">
+    <button class="btn btn-ghost btn-sm" onclick="showScreen('setup')">← رجوع</button>
+    <div style="flex:1;">
+      <div style="font-weight:900;font-size:16px;">أضف دروسك 📚</div>
+      <div style="font-size:11px;color:var(--muted);" id="lessons-count-hdr">0 درس مضاف</div>
+    </div>
+    <button class="btn btn-gold btn-sm" id="generate-btn" onclick="handleGenerate()" style="display:none;">
+      🚀 اعمل الجدول
+    </button>
+  </div>
+</div>
+<div class="page" style="padding-top:16px;">
+  <div class="steps">
+    <div class="step-dot done"></div>
+    <div class="step-dot done"></div>
+    <div class="step-dot active"></div>
+    <div class="step-dot"></div>
+  </div>
+
+  <!-- ADD FORM -->
+  <div class="card" id="add-form" style="border-color:#f5c51833;">
+    <div class="card-title" style="color:var(--gold);">➕ أضف درس جديد</div>
+
+    <!-- Subject quick select -->
+    <label class="lbl">اختار المادة بسرعة 👇</label>
+    <div class="subject-quick" id="subj-quick"></div>
+    <div style="height:10px;"></div>
+
+    <div class="row2" style="margin-bottom:10px;">
+      <div>
+        <label class="lbl">المادة</label>
+        <select id="inp-subject"></select>
+      </div>
+      <div>
+        <label class="lbl">نوع الدرس</label>
+        <select id="inp-type">
+          <option value="جديد">📖 جديد</option>
+          <option value="مراجعة">🔄 مراجعة</option>
+          <option value="حل">✏️ حل مسائل</option>
+        </select>
+      </div>
+    </div>
+
+    <div style="margin-bottom:10px;">
+      <label class="lbl">اسم الدرس *</label>
+      <input type="text" id="inp-lesson" placeholder="مثلاً: الحركة الدورية، المعادلات التفاضلية..." onkeydown="if(event.key==='Enter')addLesson()"/>
+    </div>
+
+    <div class="row2" style="margin-bottom:10px;">
+      <div>
+        <label class="lbl">الوقت المقدر</label>
+        <input type="number" id="inp-time" value="1" min="0.5" step="0.5" style="text-align:center;"/>
+      </div>
+      <div>
+        <label class="lbl">الوحدة</label>
+        <select id="inp-unit">
+          <option value="hours">ساعة</option>
+          <option value="minutes">دقيقة</option>
+        </select>
+      </div>
+    </div>
+
+    <div style="margin-bottom:14px;">
+      <label class="lbl">الصعوبة</label>
+      <div class="row3">
+        <button class="level-btn" data-diff="سهل" onclick="setDiff('سهل',this)" style="padding:10px 4px;font-size:12px;">😊<br/>سهل</button>
+        <button class="level-btn active" data-diff="متوسط" onclick="setDiff('متوسط',this)" style="padding:10px 4px;font-size:12px;">😤<br/>متوسط</button>
+        <button class="level-btn" data-diff="صعب" onclick="setDiff('صعب',this)" style="padding:10px 4px;font-size:12px;">😱<br/>صعب</button>
+      </div>
+    </div>
+
+    <button class="btn btn-gold btn-full" onclick="addLesson()">➕ أضف الدرس</button>
+  </div>
+
+  <!-- ADDED LESSONS -->
+  <div id="lessons-list-wrap" style="display:none;">
+    <div class="card">
+      <div class="card-title" style="color:var(--teal);">
+        📋 الدروس المضافة
+        <span id="lessons-count-badge" style="background:var(--teal)22;color:var(--teal);border-radius:99px;padding:2px 10px;font-size:12px;margin-right:4px;">0</span>
+      </div>
+      <div id="lessons-list" style="max-height:340px;overflow-y:auto;"></div>
+      <div style="margin-top:10px;text-align:center;font-size:13px;color:var(--muted);" id="total-time-lbl"></div>
+    </div>
+    <button class="btn btn-coral btn-full" style="margin-bottom:10px;padding:15px;" onclick="handleGenerate()">
+      🚀 اعمل الجدول الآن!
+    </button>
+  </div>
+
+  <div id="empty-lessons" style="text-align:center;padding:28px 0;color:var(--muted);">
+    <div style="font-size:52px;margin-bottom:10px;">😅</div>
+    <div>أضف درس واحد على الأقل عشان نعمل الجدول!</div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════ SCREEN: SCHEDULE ══════════ -->
+<div class="screen" id="screen-schedule">
+<div class="sticky-header" id="sched-header">
+  <div class="header-inner">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;">
+      <div>
+        <div style="font-weight:900;font-size:17px;color:var(--gold);" id="sched-title">📚 جدول المذاكرة</div>
+        <div style="font-size:11px;color:var(--muted);" id="sched-subtitle"></div>
+      </div>
+      <div id="exam-cd-header" style="display:none;" class="countdown-box">
+        <div class="countdown-num" id="cd-num">0</div>
+        <div class="countdown-lbl">يوم للامتحان</div>
+      </div>
+    </div>
+    <div>
+      <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:5px;">
+        <span>التقدم الكلي</span>
+        <span id="overall-pct-lbl" style="color:var(--gold);font-weight:800;">0%</span>
+      </div>
+      <div class="pbar-wrap" style="height:10px;">
+        <div class="pbar" id="overall-pbar" style="background:linear-gradient(90deg,var(--gold),var(--teal));width:0%;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page" style="padding-top:16px;">
+  <!-- EXPORT + ACTION BUTTONS -->
+  <div class="export-bar no-print">
+    <button class="btn btn-coral btn-sm" onclick="missedDay()">😔 فاتتني يوم</button>
+    <button class="btn btn-violet btn-sm" onclick="reshuffleSchedule()">🔄 اعمللي خطة جديدة</button>
+    <button class="btn btn-ghost btn-sm" onclick="addMoreLessons()">➕ أضف دروس</button>
+    <button class="btn btn-green btn-sm" onclick="exportSchedule()">📄 تصدير PDF</button>
+    <button class="btn btn-ghost btn-sm" onclick="confirmReset()">🗑 ابدأ من الأول</button>
+  </div>
+
+  <!-- ACHIEVEMENT BANNER -->
+  <div id="achievement-banner" style="display:none;" class="motiv"></div>
+
+  <!-- DAYS -->
+  <div id="days-container"></div>
+
+  <div style="text-align:center;padding:20px 0;color:var(--muted);font-size:12px;" class="no-print">
+    🇪🇬 مذاكرتك الذكية • بالتوفيق يا نجوم الثانوية 🌟
+  </div>
+</div>
+</div>
+
+<!-- BOTTOM NAV (mobile) -->
+<div class="bottom-nav" id="bottom-nav" style="display:none;">
+  <button class="nav-item" onclick="showScreen('intro')">
+    <span class="nav-icon">🏠</span>البداية
+  </button>
+  <button class="nav-item" onclick="showScreen('setup')">
+    <span class="nav-icon">⚙️</span>الإعداد
+  </button>
+  <button class="nav-item" onclick="showScreen('lessons')">
+    <span class="nav-icon">📚</span>الدروس
+  </button>
+  <button class="nav-item active" id="nav-sched" onclick="showScreen('schedule')">
+    <span class="nav-icon">📅</span>الجدول
+  </button>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════════
+// DATA & STATE
+// ══════════════════════════════════════════════════════════
+const SUBJECTS = [
+  {name:'فيزياء',emoji:'⚡',color:'#ff6b6b',type:'main'},
+  {name:'كيمياء',emoji:'🧪',color:'#2de2c4',type:'main'},
+  {name:'رياضيات',emoji:'📐',color:'#45b7ff',type:'main'},
+  {name:'أحياء',emoji:'🧬',color:'#96e89b',type:'main'},
+  {name:'عربي',emoji:'📖',color:'#ffd700',type:'secondary'},
+  {name:'إنجليزي',emoji:'🌍',color:'#dda0dd',type:'secondary'},
+  {name:'تاريخ',emoji:'🏛️',color:'#f0a500',type:'secondary'},
+  {name:'جغرافيا',emoji:'🗺️',color:'#98d8c8',type:'secondary'},
+  {name:'فلسفة',emoji:'🤔',color:'#c3a6ff',type:'secondary'},
+  {name:'اقتصاد',emoji:'💹',color:'#fb923c',type:'secondary'},
+];
+
+const ENCOURAGEMENTS = [
+  'يا بطل، شد حيلك! 💪',
+  'مفيش حاجة صعبة، كله هيتظبط! 🌟',
+  'إنت أقوى من أي امتحان! 🦁',
+  'يلا يا نجم، إنت عارف تعمل كده! ⭐',
+  'شوية صبر وهتوصل! 🚀',
+  'كل يوم بتذاكر بتكون أقرب للنجاح! 🎯',
+  'إنت مش لوحدك، إحنا معاك! 🤝',
+  'الثانوية دي هتعدي وهتفضل فاكر إنك ذاكرت كويس! 📚',
+  'النجاح مش بالصدفة، بالسعي والمذاكرة! 🔥',
+  'إنت بتبني مستقبلك بإيدك! 🏗️',
+];
+
+const DAY_INTROS = [
+  'يلا بينا! يوم جديد ومذاكرة جديدة 🌅',
+  'صحيت النهارده عشان تنجح! 💫',
+  'ده يومك، أثبت نفسك! 🔥',
+  'ركز النهارده وباكر هتبقى أحسن! 🧠',
+  'كل يوم خطوة جديدة للأمام! 🏃',
+  'بالتوفيق يا بطل! ما تخليش النوم يغلبك! 😤',
+  'يوم جديد = فرصة جديدة! ✨',
+];
+
+const DAY_COLORS = ['#f5c518','#2de2c4','#ff6b6b','#b57bff','#fb923c','#4ade80','#45b7ff','#ffd700','#ff8fab','#a8dadc'];
+
+let STATE = {
+  name: '',
+  level: 'متوسط',
+  hoursPerDay: 4,
+  totalDays: 7,
+  examDate: '',
+  lessons: [],
+  schedule: [],
+  currentDiff: 'متوسط',
+};
+
+// ══════════════════════════════════════════════════════════
+// LOCALSTORAGE
+// ══════════════════════════════════════════════════════════
+function saveState(){
+  try { localStorage.setItem('egyptStudyPlanner_v2', JSON.stringify(STATE)); } catch(e){}
+}
+function loadState(){
+  try {
+    const raw = localStorage.getItem('egyptStudyPlanner_v2');
+    if(raw){
+      const data = JSON.parse(raw);
+      Object.assign(STATE, data);
+      return true;
+    }
+  } catch(e){}
+  return false;
+}
+
+// ══════════════════════════════════════════════════════════
+// STARS
+// ══════════════════════════════════════════════════════════
+(function createStars(){
+  const c = document.getElementById('stars');
+  for(let i=0;i<55;i++){
+    const s = document.createElement('div');
+    s.className='star';
+    const sz = Math.random()*3+1;
+    s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${sz}px;height:${sz}px;--d:${2+Math.random()*4}s;animation-delay:${Math.random()*5}s;`;
+    c.appendChild(s);
+  }
+})();
+
+// ══════════════════════════════════════════════════════════
+// SCREEN MANAGEMENT
+// ══════════════════════════════════════════════════════════
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-'+id).classList.add('active');
+  window.scrollTo(0,0);
+  const bn = document.getElementById('bottom-nav');
+  bn.style.display = id==='schedule' ? 'flex' : 'none';
+}
+
+// ══════════════════════════════════════════════════════════
+// INIT FORM ELEMENTS
+// ══════════════════════════════════════════════════════════
+function initForms(){
+  // Subject select
+  const sel = document.getElementById('inp-subject');
+  sel.innerHTML = SUBJECTS.map(s=>`<option value="${s.name}">${s.emoji} ${s.name}</option>`).join('');
+
+  // Subject quick buttons
+  const qb = document.getElementById('subj-quick');
+  qb.innerHTML = SUBJECTS.map(s=>
+    `<button class="subj-btn" style="color:${s.color};border-color:${s.color}33;" onclick="quickSubject('${s.name}',this)">${s.emoji} ${s.name}</button>`
+  ).join('');
+
+  // Level buttons
+  document.querySelectorAll('.level-btn[data-level]').forEach(b=>{
+    b.addEventListener('click',function(){
+      document.querySelectorAll('.level-btn[data-level]').forEach(x=>x.classList.remove('active'));
+      this.classList.add('active');
+      STATE.level = this.dataset.level;
+      saveState();
+    });
+  });
+
+  // Exam date
+  document.getElementById('inp-exam').addEventListener('change',function(){
+    STATE.examDate = this.value;
+    updateExamCountdown();
+    saveState();
+  });
+}
+
+function quickSubject(name, btn){
+  document.getElementById('inp-subject').value = name;
+  document.querySelectorAll('.subj-btn').forEach(b=>b.style.background='#ffffff08');
+  const info = SUBJECTS.find(s=>s.name===name);
+  if(info) btn.style.background = info.color+'22';
+}
+
+function setDiff(d, btn){
+  STATE.currentDiff = d;
+  document.querySelectorAll('[data-diff]').forEach(x=>x.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// ══════════════════════════════════════════════════════════
+// STEPPERS / ADJUSTERS
+// ══════════════════════════════════════════════════════════
+function adj(key, delta){
+  if(key==='hours'){
+    STATE.hoursPerDay = Math.min(12, Math.max(1, +(STATE.hoursPerDay+delta).toFixed(1)));
+    document.getElementById('val-hours').textContent = STATE.hoursPerDay;
+    document.getElementById('bar-hours').style.width = ((STATE.hoursPerDay/12)*100)+'%';
+  } else {
+    STATE.totalDays = Math.min(60, Math.max(1, STATE.totalDays+delta));
+    document.getElementById('val-days').textContent = STATE.totalDays;
+  }
+  saveState();
+}
+
+function setDays(d, btn){
+  STATE.totalDays = d;
+  document.getElementById('val-days').textContent = d;
+  document.querySelectorAll('[data-days]').forEach(x=>x.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  saveState();
+}
+
+// ══════════════════════════════════════════════════════════
+// EXAM COUNTDOWN
+// ══════════════════════════════════════════════════════════
+function updateExamCountdown(){
+  const ed = document.getElementById('exam-countdown');
+  const edH = document.getElementById('exam-cd-header');
+  const cdNum = document.getElementById('cd-num');
+  if(!STATE.examDate){ ed.style.display='none'; if(edH)edH.style.display='none'; return; }
+  const days = Math.max(0, Math.ceil((new Date(STATE.examDate)-new Date())/86400000));
+  ed.style.display='block';
+  ed.innerHTML=`<div class="countdown-box"><div class="countdown-num">${days}</div><div class="countdown-lbl">يوم على الامتحان ⏳</div></div>`;
+  if(edH){ edH.style.display='block'; cdNum.textContent=days; }
+}
+
+// ══════════════════════════════════════════════════════════
+// NAVIGATION FLOW
+// ══════════════════════════════════════════════════════════
+function goSetup(){
+  STATE.name = document.getElementById('inp-name').value.trim() || 'يا بطل';
+  saveState();
+  document.getElementById('val-hours').textContent = STATE.hoursPerDay;
+  document.getElementById('bar-hours').style.width = ((STATE.hoursPerDay/12)*100)+'%';
+  document.getElementById('val-days').textContent = STATE.totalDays;
+  if(STATE.examDate){ document.getElementById('inp-exam').value=STATE.examDate; updateExamCountdown(); }
+  showScreen('setup');
+}
+
+function goLessons(){
+  renderLessonsList();
+  showScreen('lessons');
+}
+
+function addMoreLessons(){
+  renderLessonsList();
+  showScreen('lessons');
+}
+
+// ══════════════════════════════════════════════════════════
+// LESSON MANAGEMENT
+// ══════════════════════════════════════════════════════════
+function addLesson(){
+  const name = document.getElementById('inp-lesson').value.trim();
+  if(!name){
+    const f = document.getElementById('add-form');
+    f.classList.add('shake');
+    setTimeout(()=>f.classList.remove('shake'),400);
+    showToast('⚠️ اكتب اسم الدرس الأول!');
+    return;
+  }
+  const lesson = {
+    id: 'l_'+Date.now()+'_'+Math.random().toString(36).slice(2),
+    subject: document.getElementById('inp-subject').value,
+    lessonName: name,
+    time: +document.getElementById('inp-time').value || 1,
+    timeUnit: document.getElementById('inp-unit').value,
+    type: document.getElementById('inp-type').value,
+    difficulty: STATE.currentDiff,
+    done: false,
+  };
+  STATE.lessons.push(lesson);
+  document.getElementById('inp-lesson').value='';
+  document.getElementById('inp-time').value='1';
+  saveState();
+  renderLessonsList();
+  showToast('✅ اتضاف: '+lesson.lessonName);
+}
+
+function removeLesson(id){
+  STATE.lessons = STATE.lessons.filter(l=>l.id!==id);
+  saveState();
+  renderLessonsList();
+}
+
+function renderLessonsList(){
+  const wrap = document.getElementById('lessons-list-wrap');
+  const empty = document.getElementById('empty-lessons');
+  const list = document.getElementById('lessons-list');
+  const cnt = document.getElementById('lessons-count-badge');
+  const cntH = document.getElementById('lessons-count-hdr');
+  const genBtn = document.getElementById('generate-btn');
+  const ttl = document.getElementById('total-time-lbl');
+
+  const n = STATE.lessons.length;
+  cntH.textContent = n+' درس مضاف';
+  cnt.textContent = n;
+
+  if(n===0){ wrap.style.display='none'; empty.style.display='block'; genBtn.style.display='none'; return; }
+  wrap.style.display='block'; empty.style.display='none'; genBtn.style.display='flex';
+
+  list.innerHTML = STATE.lessons.map((l,i)=>{
+    const info = SUBJECTS.find(s=>s.name===l.subject)||SUBJECTS[0];
+    const tStr = l.timeUnit==='hours'? l.time+' ساعة' : l.time+' دقيقة';
+    return `<div class="added-lesson">
+      <span style="font-size:22px;">${info.emoji}</span>
+      <div class="added-lesson-info">
+        <div class="added-lesson-name">${l.lessonName}</div>
+        <div class="added-lesson-sub">${l.subject} • ${tStr} • ${l.type} • ${l.difficulty}</div>
+      </div>
+      <button class="remove-btn" onclick="removeLesson('${l.id}')">🗑</button>
+    </div>`;
+  }).join('');
+
+  const totalMin = STATE.lessons.reduce((s,l)=>s+(l.timeUnit==='hours'?l.time*60:l.time),0);
+  ttl.textContent = 'إجمالي الوقت: '+fmtTime(totalMin);
+}
+
+// ══════════════════════════════════════════════════════════
+// SCHEDULING ENGINE
+// ══════════════════════════════════════════════════════════
+function generateSchedule(lessons, hoursPerDay, totalDays, level){
+  const revFactor = level==='ضعيف'?0.30:level==='متوسط'?0.20:0.15;
+  const maxPerDay = level==='ضعيف'?2:level==='متوسط'?3:4;
+
+  // Sort: hard first but avoid back-to-back hard
+  const sorted = [...lessons].sort((a,b)=>{
+    const o={صعب:0,متوسط:1,سهل:2};
+    return o[a.difficulty]-o[b.difficulty];
+  });
+  const reordered=[];
+  let lastDiff=null;
+  const pool=[...sorted];
+  while(pool.length){
+    const idx = pool.findIndex(l=>!(l.difficulty==='صعب'&&lastDiff==='صعب'));
+    if(idx===-1){reordered.push(...pool);break;}
+    const [item]=pool.splice(idx,1);
+    reordered.push(item);
+    lastDiff=item.difficulty;
+  }
+
+  const schedule=[];
+  let lessonPool = reordered.map(l=>({...l,done:false,schedId:'s_'+Math.random().toString(36).slice(2)}));
+  let li=0;
+
+  for(let day=1;day<=totalDays;day++){
+    const availMin = hoursPerDay*60;
+    const revMin = Math.round(availMin*revFactor);
+    const studyMin = availMin-revMin;
+    const dayLessons=[];
+    let usedMin=0, mainC=0, secC=0, added=0;
+
+    let attempts=0;
+    while(li<lessonPool.length && added<maxPerDay && attempts<lessonPool.length*2){
+      attempts++;
+      const lesson=lessonPool[li];
+      const info=SUBJECTS.find(s=>s.name===lesson.subject)||{type:'secondary'};
+      const isMain=info.type==='main';
+      if(isMain&&mainC>=2){li++;continue;}
+      if(!isMain&&secC>=1){li++;continue;}
+      const lMin=lesson.timeUnit==='hours'?lesson.time*60:lesson.time;
+      if(usedMin+lMin>studyMin&&dayLessons.length>0) break;
+      dayLessons.push({...lesson,scheduledMin:lMin});
+      usedMin+=lMin;
+      added++;
+      if(isMain)mainC++;else secC++;
+      li++;
+    }
+
+    const revLessons=[];
+    if(revMin>0&&day>1&&schedule.length>0){
+      const prev=schedule[schedule.length-1].lessons;
+      const revSubj=(prev[0]||dayLessons[0]||{}).subject;
+      if(revSubj){
+        revLessons.push({
+          id:'rev_'+day+'_'+Math.random().toString(36).slice(2),
+          schedId:'rev_'+day,
+          subject:revSubj,lessonName:'مراجعة سريعة',
+          scheduledMin:revMin,type:'مراجعة',difficulty:'سهل',
+          isRevision:true,done:false,
+        });
+      }
+    }
+
+    const enc=ENCOURAGEMENTS[Math.floor(Math.random()*ENCOURAGEMENTS.length)];
+    const intro=DAY_INTROS[(day-1)%DAY_INTROS.length];
+    const color=DAY_COLORS[(day-1)%DAY_COLORS.length];
+
+    schedule.push({
+      day,color,encouragement:enc,intro,
+      lessons:dayLessons,
+      revisionLessons:revLessons,
+      totalMin:usedMin+(revLessons.length?revMin:0),
+    });
+  }
+
+  // Overflow
+  if(li<lessonPool.length){
+    const overflow=lessonPool.slice(li).map(l=>({...l,scheduledMin:l.timeUnit==='hours'?l.time*60:l.time}));
+    schedule.push({
+      day:totalDays+1,
+      color:'#ff6b6b',
+      encouragement:'آخر يوم! بالتوفيق يا نجم! 🏆',
+      intro:'الخطوة الأخيرة للنجاح!',
+      lessons:overflow,revisionLessons:[],
+      totalMin:overflow.reduce((s,l)=>s+l.scheduledMin,0),
+      isOverflow:true,
+    });
+  }
+
+  return schedule;
+}
+
+function handleGenerate(){
+  if(!STATE.lessons.length){showToast('⚠️ أضف درس أول!');return;}
+  STATE.schedule = generateSchedule(STATE.lessons, STATE.hoursPerDay, STATE.totalDays, STATE.level);
+  saveState();
+  renderSchedule();
+  showScreen('schedule');
+}
+
+// ══════════════════════════════════════════════════════════
+// SCHEDULE RENDER
+// ══════════════════════════════════════════════════════════
+function renderSchedule(){
+  updateExamCountdown();
+  const title = document.getElementById('sched-title');
+  const sub = document.getElementById('sched-subtitle');
+  title.textContent = STATE.name ? `📚 جدول ${STATE.name}` : '📚 جدول المذاكرة';
+  sub.textContent = `${STATE.level} • ${STATE.hoursPerDay} ساعة/يوم • ${STATE.schedule.length} يوم`;
+
+  updateOverallProgress();
+  renderDays();
+  renderAchievementBanner();
+}
+
+function updateOverallProgress(){
+  const all = STATE.schedule.flatMap(d=>[...d.lessons,...d.revisionLessons]);
+  const done = all.filter(l=>l.done).length;
+  const pct = all.length ? Math.round(done/all.length*100) : 0;
+  document.getElementById('overall-pbar').style.width=pct+'%';
+  document.getElementById('overall-pct-lbl').textContent=`${done}/${all.length} (${pct}%)`;
+}
+
+function renderAchievementBanner(){
+  const all = STATE.schedule.flatMap(d=>[...d.lessons,...d.revisionLessons]);
+  const pct = all.length ? Math.round(all.filter(l=>l.done).length/all.length*100) : 0;
+  const banner = document.getElementById('achievement-banner');
+  if(pct===0){banner.style.display='none';return;}
+  banner.style.display='flex';
+  const msgs = [
+    [100,'🏆 خلصت كل حاجة! يا ابن الأصول! 🎉'],
+    [75,'🥇 قريب من الآخر، شد حيلك! 💪'],
+    [50,'🥈 نص الطريق، إنت رائع! 🌟'],
+    [25,'🥉 بدأت كويس، كمل! 🔥'],
+    [0,'🌱 يلا نبدأ، إنت قادر! 💡'],
+  ];
+  const msg = msgs.find(m=>pct>=m[0]);
+  banner.textContent = msg[1];
+}
+
+function renderDays(){
+  const container = document.getElementById('days-container');
+  container.innerHTML='';
+  STATE.schedule.forEach((d,di)=>{
+    const allL=[...d.lessons,...d.revisionLessons];
+    const done=allL.filter(l=>l.done).length;
+    const pct=allL.length?Math.round(done/allL.length*100):0;
+    const color=d.color||DAY_COLORS[di%DAY_COLORS.length];
+
+    const card=document.createElement('div');
+    card.className='day-card'+(di===0?' expanded':'');
+    card.id='day-card-'+di;
+    card.style.setProperty('--day-color',color);
+
+    card.innerHTML=`
+      <div class="day-header" onclick="toggleDay(${di})">
+        <div class="day-num" style="background:${color};color:#000;">${d.isOverflow?'⚠️':d.day}</div>
+        <div style="flex:1;min-width:0;">
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span style="font-weight:900;font-size:15px;">${d.isOverflow?'⚠️ يوم إضافي (فيض)':`اليوم ${d.day}`}</span>
+            ${pct===100?'<span>🏆</span>':''}
+          </div>
+          <div style="font-size:11px;color:var(--muted);margin-top:1px;">${d.intro}</div>
+          <div style="margin-top:6px;">
+            <div class="pbar-wrap" style="height:5px;">
+              <div class="pbar" style="background:${color};width:${pct}%;"></div>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center;flex-shrink:0;">
+          <div style="font-size:18px;font-weight:900;color:${color};">${pct}%</div>
+          <div style="font-size:10px;color:var(--muted);">${done}/${allL.length}</div>
+        </div>
+        <div class="day-chevron">▾</div>
+      </div>
+      <div class="day-body">
+        <div class="motiv" style="margin-top:14px;">💬 ${d.encouragement}</div>
+        <div class="stat-row">
+          <div class="stat-pill">⏰ <strong>${fmtTime(d.totalMin)}</strong></div>
+          <div class="stat-pill">📚 <strong>${d.lessons.length} درس</strong></div>
+          ${d.revisionLessons.length?`<div class="stat-pill">🔄 <strong>مراجعة ${fmtTime(d.revisionLessons[0].scheduledMin)}</strong></div>`:''}
+        </div>
+        <div id="lessons-day-${di}">
+          ${renderLessonsHTML(d.lessons, di, false)}
+          ${renderLessonsHTML(d.revisionLessons, di, true)}
+        </div>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function renderLessonsHTML(lessons, di, isRev){
+  return lessons.map((l,li)=>{
+    const info=SUBJECTS.find(s=>s.name===l.subject)||SUBJECTS[0];
+    const tc={جديد:'#2de2c4',مراجعة:'#ffd700',حل:'#ff6b6b'};
+    const dc={سهل:'#4ade80',متوسط:'#fb923c',صعب:'#ff6b6b'};
+    const realIdx = isRev ? STATE.schedule[di].lessons.length + li : li;
+    return `<div class="lesson-row${l.done?' done':''}" id="lrow-${di}-${realIdx}" onclick="toggleLesson(${di},${realIdx},${isRev})">
+      <div class="lesson-check">${l.done?'✓':''}</div>
+      <div class="lesson-info">
+        <div class="lesson-name">${l.lessonName}</div>
+        <div class="lesson-meta">
+          <span class="tag" style="color:${info.color}">${info.emoji} ${l.subject}</span>
+          ${!isRev?`<span class="tag" style="color:${tc[l.type]||'#aaa'}">${l.type}</span><span class="tag" style="color:${dc[l.difficulty]||'#aaa'}">${l.difficulty}</span>`:'<span class="tag" style="color:#ffd700">مراجعة</span>'}
+          <span class="tag" style="color:var(--muted)">⏱ ${fmtTime(l.scheduledMin)}</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleDay(di){
+  const card=document.getElementById('day-card-'+di);
+  card.classList.toggle('expanded');
+}
+
+function toggleLesson(di, li, isRev){
+  const day=STATE.schedule[di];
+  const allL=[...day.lessons,...day.revisionLessons];
+  if(!allL[li]) return;
+  const wasntDone = !allL[li].done;
+
+  if(li < day.lessons.length){
+    day.lessons[li].done = !day.lessons[li].done;
+  } else {
+    day.revisionLessons[li-day.lessons.length].done = !day.revisionLessons[li-day.lessons.length].done;
+  }
+
+  saveState();
+  updateOverallProgress();
+  renderAchievementBanner();
+
+  // Re-render just this day's lessons
+  const allNow=[...day.lessons,...day.revisionLessons];
+  const done=allNow.filter(l=>l.done).length;
+  const pct=allNow.length?Math.round(done/allNow.length*100):0;
+  const color=day.color||DAY_COLORS[di%DAY_COLORS.length];
+
+  // Update pct display
+  const card=document.getElementById('day-card-'+di);
+  if(card){
+    const pbarEl = card.querySelector('.day-body ~ .day-header .pbar, .day-header .pbar');
+    card.querySelectorAll('.pbar').forEach(b=>{ if(b.closest('.day-header')) b.style.width=pct+'%'; });
+    card.querySelectorAll('.day-header [style*="font-size:18px"]').forEach(el=>el.textContent=pct+'%');
+    card.querySelectorAll('.day-header [style*="font-size:10px"]').forEach(el=>el.textContent=done+'/'+allNow.length);
+  }
+
+  const el=document.getElementById('lrow-'+di+'-'+li);
+  if(el){
+    el.className='lesson-row'+(allL[li]?allL[li].done?' done':'':'');
+    const chk=el.querySelector('.lesson-check');
+    if(chk) chk.textContent=allL[li]&&allL[li].done?'✓':'';
+  }
+
+  if(wasntDone && allL[li] && allL[li].done) spawnConfetti();
+  if(pct===100) showToast('🏆 خلصت اليوم كله! يا بطل!');
+}
+
+// ══════════════════════════════════════════════════════════
+// ACTION BUTTONS
+// ══════════════════════════════════════════════════════════
+function missedDay(){
+  const pending = STATE.schedule.flatMap(d=>d.lessons.filter(l=>!l.done));
+  if(!pending.length){showToast('🎉 مفيش دروس باقية!');return;}
+  const newDays = Math.max(3, Math.ceil(pending.length/2)+1);
+  STATE.schedule = generateSchedule(pending, STATE.hoursPerDay, newDays, STATE.level);
+  saveState();
+  renderSchedule();
+  showToast('🔄 اتوزعت الدروس الباقية على '+newDays+' أيام');
+}
+
+function reshuffleSchedule(){
+  if(!STATE.lessons.length){showToast('⚠️ مفيش دروس!');return;}
+  const baseLessons = STATE.schedule.flatMap(d=>d.lessons.filter(l=>!l.done));
+  const lessons = baseLessons.length ? baseLessons : STATE.lessons;
+  STATE.schedule = generateSchedule(lessons, STATE.hoursPerDay, STATE.totalDays, STATE.level);
+  saveState();
+  renderSchedule();
+  showToast('🔀 اتعملت خطة جديدة!');
+}
+
+function confirmReset(){
+  if(confirm('مؤكد عايز تمسح كل حاجة وتبدأ من الأول؟')){ doReset(); }
+}
+function doReset(){
+  STATE={name:'',level:'متوسط',hoursPerDay:4,totalDays:7,examDate:'',lessons:[],schedule:[],currentDiff:'متوسط'};
+  try{localStorage.removeItem('egyptStudyPlanner_v2');}catch(e){}
+  showScreen('intro');
+  document.getElementById('inp-name').value='';
+  document.querySelectorAll('.level-btn[data-level]').forEach(b=>b.classList.toggle('active',b.dataset.level==='متوسط'));
+  document.getElementById('val-hours').textContent='4';
+  document.getElementById('val-days').textContent='7';
+  document.getElementById('bar-hours').style.width='33%';
+}
+
+// ══════════════════════════════════════════════════════════
+// EXPORT
+// ══════════════════════════════════════════════════════════
+function exportSchedule(){
+  const win = window.open('','_blank');
+  const html = buildPrintHTML();
+  win.document.write(html);
+  win.document.close();
+  win.focus();
+  setTimeout(()=>win.print(),600);
+}
+
+function buildPrintHTML(){
+  const s=STATE;
+  const totalMin = s.schedule.flatMap(d=>[...d.lessons,...d.revisionLessons]).reduce((a,l)=>a+(l.scheduledMin||0),0);
+  const doneMin = s.schedule.flatMap(d=>[...d.lessons,...d.revisionLessons]).filter(l=>l.done).reduce((a,l)=>a+(l.scheduledMin||0),0);
+  const pct = totalMin ? Math.round(doneMin/totalMin*100) : 0;
+
+  let daysHTML = s.schedule.map(d=>{
+    const allL=[...d.lessons,...d.revisionLessons];
+    const done=allL.filter(l=>l.done).length;
+    const dpct=allL.length?Math.round(done/allL.length*100):0;
+    return `
+      <div style="margin-bottom:24px;border:2px solid ${d.color||'#f5c518'};border-radius:12px;overflow:hidden;page-break-inside:avoid;">
+        <div style="background:${d.color||'#f5c518'};padding:10px 16px;display:flex;align-items:center;gap:12px;">
+          <div style="width:36px;height:36px;background:#000a;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;color:#fff;">${d.day}</div>
+          <div style="flex:1;">
+            <strong style="font-size:15px;">${d.isOverflow?'⚠️ يوم إضافي':'اليوم '+d.day}</strong>
+            <div style="font-size:11px;opacity:.8;">${d.intro}</div>
+          </div>
+          <div style="text-align:center;font-weight:900;">${dpct}%</div>
+        </div>
+        <div style="padding:12px 16px;">
+          <div style="font-size:12px;color:#666;margin-bottom:8px;">⏰ ${fmtTime(d.totalMin)} | 📚 ${d.lessons.length} درس</div>
+          ${allL.map(l=>`<div style="padding:8px 12px;margin-bottom:6px;border-radius:8px;border:1px solid #eee;display:flex;align-items:center;gap:10px;${l.done?'opacity:.5;text-decoration:line-through;':''}">
+            <span style="font-size:16px;">${l.done?'✅':'⬜'}</span>
+            <div>
+              <strong style="font-size:13px;">${l.lessonName}</strong>
+              <div style="font-size:11px;color:#666;">${l.subject} • ${l.type||'مراجعة'} • ${l.difficulty||'سهل'} • ⏱ ${fmtTime(l.scheduledMin)}</div>
+            </div>
+          </div>`).join('')}
+        </div>
+      </div>`;
+  }).join('');
+
+  return `<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"/>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet"/>
+    <title>جدول مذاكرة - ${s.name}</title>
+    <style>
+      *{box-sizing:border-box;margin:0;padding:0;}
+      body{font-family:'Cairo',sans-serif;direction:rtl;background:#fff;color:#111;padding:20px;}
+      @media print{body{padding:0;}}
+    </style>
+  </head><body>
+    <div style="text-align:center;margin-bottom:24px;border-bottom:3px solid #f5c518;padding-bottom:16px;">
+      <div style="font-size:36px;">📚</div>
+      <h1 style="font-size:26px;font-weight:900;color:#f5c518;margin:6px 0;">مذاكرتك الذكية</h1>
+      <div style="font-size:15px;color:#555;">${s.name?'جدول '+s.name+' | ':''} ${s.level} | ${s.hoursPerDay} ساعة/يوم | ${s.schedule.length} يوم</div>
+      <div style="margin-top:10px;font-size:14px;">التقدم الكلي: <strong style="color:#f5c518;">${pct}%</strong></div>
+      ${s.examDate?`<div style="margin-top:6px;font-size:13px;color:#ff6b6b;">⏳ موعد الامتحان: ${s.examDate}</div>`:''}
+    </div>
+    ${daysHTML}
+    <div style="text-align:center;margin-top:24px;font-size:12px;color:#aaa;">🇪🇬 مذاكرتك الذكية • بالتوفيق يا نجوم الثانوية 🌟</div>
+  </body></html>`;
+}
+
+// ══════════════════════════════════════════════════════════
+// CONFETTI
+// ══════════════════════════════════════════════════════════
+function spawnConfetti(){
+  const colors=['#f5c518','#2de2c4','#ff6b6b','#b57bff','#4ade80','#fb923c'];
+  for(let i=0;i<22;i++){
+    const c=document.createElement('div');
+    c.className='confetti-piece';
+    const sz=8+Math.random()*10;
+    c.style.cssText=`
+      left:${Math.random()*100}vw;top:-20px;
+      width:${sz}px;height:${sz}px;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      --dur:${0.9+Math.random()*0.8}s;
+      animation-delay:${Math.random()*0.3}s;
+      border-radius:${Math.random()>0.5?'50%':'3px'};
+    `;
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),1600);
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+// TOAST
+// ══════════════════════════════════════════════════════════
+let _toastTimer=null;
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  if(_toastTimer) clearTimeout(_toastTimer);
+  _toastTimer=setTimeout(()=>t.classList.remove('show'),2600);
+}
+
+// ══════════════════════════════════════════════════════════
+// HELPERS
+// ══════════════════════════════════════════════════════════
+function fmtTime(min){
+  if(!min) return '—';
+  if(min<60) return min+' دقيقة';
+  const h=Math.floor(min/60), m=min%60;
+  return m>0 ? h+' ساعة و'+m+' دقيقة' : h+' ساعة';
+}
+
+// ══════════════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════════════
+(function init(){
+  initForms();
+  const restored = loadState();
+
+  if(restored && STATE.schedule && STATE.schedule.length){
+    // Restore UI values
+    document.getElementById('inp-name').value = STATE.name||'';
+    document.querySelectorAll('.level-btn[data-level]').forEach(b=>b.classList.toggle('active',b.dataset.level===STATE.level));
+    document.getElementById('val-hours').textContent = STATE.hoursPerDay;
+    document.getElementById('val-days').textContent = STATE.totalDays;
+    document.getElementById('bar-hours').style.width = ((STATE.hoursPerDay/12)*100)+'%';
+    if(STATE.examDate) document.getElementById('inp-exam').value=STATE.examDate;
+    updateExamCountdown();
+    renderSchedule();
+    showScreen('schedule');
+    showToast('👋 أهلاً تاني! رجعتلك الجدول 😎');
+  } else if(restored && STATE.lessons && STATE.lessons.length){
+    document.getElementById('inp-name').value = STATE.name||'';
+    document.querySelectorAll('.level-btn[data-level]').forEach(b=>b.classList.toggle('active',b.dataset.level===STATE.level));
+    renderLessonsList();
+    showScreen('lessons');
+  }
+
+  // Sync hours stepper on input change
+  document.getElementById('inp-exam').addEventListener('change',function(){
+    STATE.examDate=this.value;
+    updateExamCountdown();
+    saveState();
+  });
+})();
+</script>
+</body>
+</html>
